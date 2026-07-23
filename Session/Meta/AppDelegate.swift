@@ -55,7 +55,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         /// which have returned above).
         MainThreadUITripwire.install()
 #endif
-        
+
+        /// Expo brownfield: initialize React Native and float the "Expo" entry button.
+        ExpoIntegration.bootstrap()
+
         /// These should be the first things we do (the startup process can fail without them)
         dependencies.set(singleton: .appContext, to: MainAppContext(using: dependencies))
         verifyDBKeysAvailableBeforeBackgroundLaunch()

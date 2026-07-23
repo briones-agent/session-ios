@@ -4,7 +4,11 @@ import Foundation
 
 public extension Task where Success == Never, Failure == Never {
     /// Suspends the current task until the given deadline (compatibility version).
-    @available(iOS, introduced: 13.0, obsoleted: 16.0, message: "Use built-in Task.sleep(for:) accepting Swift.Duration on iOS 16+")
+    ///
+    /// Note: originally `obsoleted: 16.0`, but this app now has a 16.1 deployment floor (Expo/React
+    /// Native) so the overload is kept available — it still accepts the `DispatchTimeInterval` values
+    /// used throughout the app and forwards to the built-in nanosecond sleep.
+    @available(iOS, introduced: 13.0)
     static func sleep(for interval: DispatchTimeInterval) async throws {
         /// Calculate total nanoseconds safely (avoid `UInt64` overflow if something like `Date.distantFuture` is provided)
         let nanoseconds: UInt64 = DispatchTimeInterval.nanoseconds(from: interval)
